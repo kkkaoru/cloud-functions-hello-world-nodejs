@@ -27,7 +27,6 @@ jobs:
       - name: Exports credentials
         run: |
           echo "$GCP_SERVICE_ACCOUNT_KEY_BASE64" | base64 -d > /tmp/gcp_key.json
-          export GOOGLE_APPLICATION_CREDENTIALS=/tmp/gcp_key.json
         env:
           GCP_SERVICE_ACCOUNT_KEY_BASE64: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY_BASE64 }}
       - name: Deploy to firebase
@@ -36,3 +35,4 @@ jobs:
           firebase deploy --only functions
         env:
          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+         GOOGLE_APPLICATION_CREDENTIALS: /tmp/gcp_key.json
